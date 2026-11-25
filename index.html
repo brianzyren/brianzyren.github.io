@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brian Ren Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday-professional: a first-year engineer's work shown plainly to recruiters
+   IDEA an engineering drawing set: each project is a sheet with a title block, red revision notes are "what I'd change"
+   PICTURE large line drawing of the Nova quadcopter on the cover sheet; each project sheet holds photo / CAD views
+   COLOUR white paper, ink black, drafting cobalt for linework, redline red for revisions
+   TYPE Archivo 800 display + Archivo text
+   LAYOUT cover: title block left over full-width drawing; sheets: text column + figure column, revision note spanning below; phone stacks */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0c1018);--ink:light-dark(#0d1117,#e9edf4);--soft:light-dark(#5a6372,#9aa4b5);--line:light-dark(#1846e0,#7ea0ff);--grid:light-dark(#e7ecf7,#172033);--red:light-dark(#d7261e,#ff6a5f);--redbg:light-dark(#fff1ef,#2a1414);--panel:light-dark(#f5f7fc,#121827);--rule:light-dark(#0d1117,#c9d1de)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Archivo,system-ui,sans-serif;overflow-x:clip}
+a{color:var(--line)}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding-block:clamp(28px,4vw,64px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--rule)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding:12px max(5vw,16px)}
+nav b{font-weight:800;margin-right:auto;font-size:18px}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:8px 0}
+nav a:hover,nav a:focus-visible{color:var(--line)}
+.cover{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.coverg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+h1{font-size:clamp(38px,5.4vw,60px);line-height:1.05;letter-spacing:-.02em;margin:0 0 16px;font-weight:800;text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,40px);line-height:1.05;letter-spacing:-.02em;margin:0 0 10px;font-weight:800;text-wrap:balance}
+h3{font-size:18px;margin:22px 0 6px}
+.lead{font-size:17px;max-width:34em;margin:0 0 20px}
+.tb{border:2px solid var(--rule);background:var(--bg);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tb div{padding:10px 12px;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.tb div:nth-child(-n+2){border-top:0}.tb div:nth-child(odd){border-left:0}
+.tb small{display:block;color:var(--soft);font-size:13px}
+.tb span{font-weight:700}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:2px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:700;background:var(--bg)}
+.btn.p{background:var(--ink);color:var(--bg)}
+.btn:focus-visible,button:focus-visible{outline:3px solid var(--line);outline-offset:2px}
+.hero{border:2px solid var(--rule);background:var(--bg);position:relative;min-height:380px}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.note{font-size:13px;color:var(--soft);margin:10px 0 0}
+.idx{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:0;border:2px solid var(--rule);margin-top:clamp(24px,3vw,36px)}
+.idx a{display:block;padding:12px 14px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);color:var(--ink);text-decoration:none;background:var(--bg)}
+.idx a:hover{background:var(--panel)}
+.idx small{display:block;color:var(--soft);font-size:13px}
+.sheet{border-top:2px solid var(--rule)}
+.sg{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,44px)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px;padding:0;list-style:none}
+.meta li{border:1px solid var(--rule);padding:3px 9px;font-size:14px;white-space:nowrap}
+.sheet ul.did{padding-left:20px;margin:6px 0}
+.sheet ul.did li{margin:4px 0}
+.fig{border:2px solid var(--rule);background:var(--bg);display:flex;flex-direction:column}
+.tabs{display:flex;border-bottom:2px solid var(--rule)}
+.tabs button{flex:1;min-height:44px;font:700 15px Archivo,sans-serif;background:var(--panel);color:var(--ink);border:0;border-left:1px solid var(--rule);cursor:pointer}
+.tabs button:first-child{border-left:0}
+.tabs button[aria-selected=true]{background:var(--bg);color:var(--line);box-shadow:inset 0 -3px 0 var(--line)}
+.view{flex:1;position:relative;min-height:380px;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px}
+.view svg,.view img,.view video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 12px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft)}
+.rev{grid-column:1/-1;border:2px solid var(--red);background:var(--redbg);padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start}
+.rev .tri{width:40px;height:40px}
+.rev h3{margin:0 0 6px;color:var(--red)}
+.rev ol{margin:0;padding-left:20px}
+.rev li{margin:4px 0}
+.about{background:var(--panel);border-top:2px solid var(--rule)}
+.ag{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,36px)}
+.ag ul{padding-left:18px;margin:6px 0}
+footer{border-top:2px solid var(--rule)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:end}
+svg text{font-family:Archivo,sans-serif}
+@media(max-width:860px){.coverg,.sg{grid-template-columns:minmax(0,1fr)}.ag{grid-template-columns:minmax(0,1fr)}.hero{min-height:300px}}
+@media(max-width:600px){nav a.hide{display:none}.view{min-height:260px}.rev{grid-template-columns:minmax(0,1fr)}.rev .tri{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.spin{animation:none!important}}
+.spin{transform-box:fill-box;transform-origin:center;animation:sp 1.2s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Brian Ren</b><a href="#projects">Projects</a><a href="#about" class="hide">About</a><a href="#contact">Contact</a></div></nav>
+
+<header class="band cover">
+ <div class="wrap coverg">
+  <div>
+   <h1>Brian Ren, mechatronics engineering student</h1>
+   <p class="lead">First-year Mechatronics Systems Engineering at SFU Surrey and a mechanical member of Team Astra, SFU's UAV design team. I like building things that move: drones, robots and anything with a motor and a sensor. Looking for a co-op placement.</p>
+   <div class="tb">
+    <div><small>School</small><span>SFU, BASc Mechatronics</span></div>
+    <div><small>Graduating</small><span>Fall 2029</span></div>
+    <div><small>Team</small><span>Team Astra UAV</span></div>
+    <div><small>Languages</small><span>English, Mandarin, French</span></div>
+   </div>
+   <div class="btns"><a class="btn p" href="#projects">See the projects</a><a class="btn" href="#contact">Contact me</a></div>
+  </div>
+  <div>
+   <div class="hero"><img src="media/nova-cad.jpg" alt="SolidWorks assembly of the Project Nova quadcopter showing the carbon arm clamp and landing gear"></div>
+   <p class="note">Sheet 01: Project Nova, SolidWorks assembly. Projects without photos yet show a line diagram.</p>
+  </div>
+ </div>
+ <div class="wrap"><div class="idx" id="idx"></div></div>
+</header>
+
+<main id="projects"></main>
+
+<section class="band about" id="about">
+ <div class="wrap">
+  <h2>Tools and background</h2>
+  <div class="ag">
+   <div><h3>Design and electronics</h3><ul><li>SolidWorks, AutoCAD</li><li>Altium Designer (student licence), Multisim</li><li>Arduino, Raspberry Pi</li></ul></div>
+   <div><h3>Interests</h3><ul><li>Control systems and embedded hardware</li><li>Propulsion and drivetrains</li><li>Long term: automotive engineering</li></ul></div>
+   <div><h3>Leadership</h3><ul><li>Flight Commander, 637 Arrow Squadron, Royal Canadian Air Cadets (2019 to 2025), led a flight of 40 cadets</li><li>Science Facilitator Assistant, Science World (2024)</li><li>WHMIS certified</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<footer class="band" id="contact">
+ <div class="wrap">
+  <div><h2>Get in touch</h2><p style="margin:0">Email: <a href="mailto:brianren915@gmail.com">brianren915@gmail.com</a><br>LinkedIn: <a href="https://www.linkedin.com/in/brian-ren-378884286">linkedin.com/in/brian-ren-378884286</a><br>Surrey, BC</p></div>
+  <p class="note" style="margin:0">Updated November 2026</p>
+ </div>
+</footer>
+
+<script>
+{
+const P=[
+ {id:"nova",title:"Project Nova: heavy-lift quadcopter",sub:"Team Astra UAV, 2026",tags:["SolidWorks","Propulsion","ESC / battery sizing","Team of 10+"],
+  what:"A quadcopter built for a payload-carrying competition. I joined the mechanical side of Team Astra in February 2026.",
+  did:["Modelled frame parts in CAD and helped build the airframe","Researched the propulsion system: motor, prop and ESC options against our battery","Checked whether swapping to a Hobbywing XRotor ESC worked with the current battery, and reported findings to the project lead so the electrical lead could plan wiring"],
+  change:["Pick the battery and ESC pairing before finalising the arm and motor mounts, so the propulsion numbers drive the frame instead of the frame limiting the propulsion","Keep one shared spreadsheet of thrust, current draw and weight so every component choice is checked against the same numbers","Bench-test one arm with a thrust stand before committing to all four"],
+  draw:"quad",media:[{t:"CAD",k:"img",src:"media/nova-cad.jpg",cap:"SolidWorks assembly: arm clamp, centre plates and landing gear"},{t:"Flight 1",k:"vid",src:"media/nova-flight-1.mp4",poster:"media/nova-flight-1.jpg",cap:"Outdoor flight test"},{t:"Flight 2",k:"vid",src:"media/nova-flight-2.mp4",poster:"media/nova-flight-2.jpg",cap:"Take-off and landing test"},{t:"Diagram",k:"draw",cap:"Top-view layout"}]},
+ {id:"maglev",title:"Linear induction motor maglev",sub:"PHYS 141 Studio Physics, Spring 2026, team of 4",tags:["3-phase AC","RLC phase shifting","Electromagnetics","Excel modelling"],
+  what:"A small linear induction motor: a row of coils driven by three-phase AC creates a magnetic field that travels along the track and pulls an aluminium-bar cart with it, the same principle SkyTrain uses. Built with Quinn Richardson, Nathan Charlesworth and Samarth Patel.",
+  did:["Designed two RLC networks to make three-phase power from one function generator, solving for L so each output sat 120\u00b0 apart with matched amplitudes (about 0.92)","Built a force and slip model in Excel to choose coil turns, coil pitch and frequency, predicting 2.15 m/s\u00b2 for the final setup","Found the RLC outputs were noisy and too weak (78 mA through a coil), added an audio amplifier, then switched to three synced function generators on a 300 W supply","Got the cart moving at roughly 2 to 3 m/s\u00b2, close to the 2.15 m/s\u00b2 prediction, with 175-turn coils at about 300 Hz and 4 A"],
+  change:["Wind the coils with thicker wire: ours drew more current than the gauge could handle, the enamel burned off after one successful run and we could not repeat the test","Go back to around 400 turns per coil with a wider pole pitch, which would cut the current needed by more than half","Use an IC-based signal generator instead of RLC circuits for clean, balanced three-phase power","Measure coil current in the final setup instead of estimating it, so the comparison with the model is a real number"],
+  draw:"maglev",media:[{t:"Final setup",k:"img",src:"media/maglev-generators.jpg",cap:"Three synced function generators driving the amplifier"},{t:"First test",k:"img",src:"media/maglev-rlc-test.jpg",cap:"RLC phase circuits, oscilloscope and coil track"},{t:"Amplifier",k:"img",src:"media/maglev-amplifier.jpg",cap:"Amplifier stage added to boost coil current"},{t:"Coils",k:"img",src:"media/maglev-coils.jpg",cap:"Coils after testing, enamel burned off by heat"},{t:"Diagram",k:"draw",cap:"How the motor works"}]},
+ {id:"balance",title:"Two-wheel self-balancing robot",sub:"Personal project",tags:["Arduino UNO R3","MPU-6050 IMU","L298N driver","PID control"],
+  what:"An inverted-pendulum robot that stays upright on two wheels by reading tilt from an IMU and correcting with the motors.",
+  did:["Wired the Elegoo UNO R3, MPU-6050 and L298N motor driver","Wrote the code to read the IMU and drive the motors","Tuned the PID loop to keep it upright"],
+  change:["Replace the L298N with a MOSFET driver such as the TB6612FNG; the L298N loses around 2 V, which leaves the motors short of power","Log tilt angle and motor output over serial and tune the PID from the graph instead of by feel","Lower the battery to bring the centre of mass closer to the axle for easier tuning"],
+  draw:"robot"},
+ {id:"linebot",title:"MSE 112 line-following robot",sub:"MSE 112, Summer 2026, team of 4",tags:["Hiwonder MasterPi","Python","PID control","Ultrasonic sensing","Raspberry Pi"],
+  what:"An autonomous robot that follows a taped track on its own and stops for obstacles, built on the Hiwonder MasterPi platform for MSE 112.",
+  did:["Wrote Python modules covering GPIO, servo control, file I/O, signal handling and NumPy processing, then combined them into a PID line-following controller","Added ultrasonic obstacle detection and tuned the PID gains and detection thresholds over repeated test runs instead of guessing values","Wrote the full project report for the four-person group"],
+  change:["Log the line sensor error and motor output to a file on every run, then tune the PID from plotted data instead of watching the robot","Test sharp corners and lighting changes on purpose early, since those are where a line follower usually fails","Put the gains and thresholds in one config file so the team can change them without editing code"],
+  draw:"linebot"},
+ {id:"picker",title:"Object identification and pick-up robot",sub:"Hiwonder MasterPi",tags:["Hiwonder MasterPi","Camera vision","Robot arm","Python"],
+  what:"The MasterPi using its camera to find a target object, drive to it and pick it up with its arm.",
+  did:["Used the onboard camera to identify the target object","Drove the robot into position and controlled the arm and gripper to pick the object up"],
+  change:["Calibrate the camera under the actual room lighting before each test, since colour and shape detection drift when the light changes","Approach the object slowly in the last few centimetres so the gripper lines up more reliably"],
+  draw:"picker"}
+];
+const L='stroke="var(--line)" fill="none" stroke-width="2.2"';
+const T='fill="var(--soft)" font-size="13"';
+const D={
+ quad:()=>`<g ${L}><line x1="110" y1="80" x2="390" y2="300"/><line x1="390" y1="80" x2="110" y2="300"/><rect x="200" y="150" width="100" height="80" rx="10" fill="var(--bg)"/><rect x="220" y="168" width="60" height="44" rx="4" stroke-dasharray="5 4"/>${[[110,80],[390,80],[110,300],[390,300]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="60" stroke-dasharray="3 6" opacity=".7"/><circle cx="${x}" cy="${y}" r="15" fill="var(--bg)"/><g class="spin"><line x1="${x-56}" y1="${y}" x2="${x+56}" y2="${y}" stroke-width="5" stroke-linecap="round"/></g>`).join('')}</g><g ${T}><text x="250" y="252" text-anchor="middle">payload bay</text><text x="110" y="378" text-anchor="middle">motor + prop</text><text x="250" y="330" text-anchor="middle">carbon arms</text></g>`,
+ maglev:()=>`<g ${L}><rect x="40" y="250" width="420" height="30"/>${Array.from({length:12},(_,i)=>`<rect x="${52+i*34}" y="226" width="22" height="24" rx="3" fill="${i%3==0?'var(--line)':'var(--bg)'}" fill-opacity="${i%3==0?.25:1}"/>`).join('')}<rect x="180" y="150" width="140" height="50" rx="6" fill="var(--bg)"/><path d="M190 212 h120" stroke-dasharray="4 5"/><path d="M340 175 h70 m-12 -8 l12 8 l-12 8"/></g><g ${T}><text x="250" y="181" text-anchor="middle">levitated cart</text><text x="250" y="305" text-anchor="middle">3-phase stator coils</text><text x="375" y="160" text-anchor="middle">thrust</text></g>`,
+ robot:()=>`<g ${L}><rect x="205" y="70" width="90" height="220" rx="6" fill="var(--bg)"/><line x1="205" y1="140" x2="295" y2="140"/><line x1="205" y1="210" x2="295" y2="210"/><circle cx="250" cy="320" r="42" fill="var(--bg)"/><circle cx="250" cy="320" r="8"/><rect x="225" y="226" width="50" height="40" rx="3"/><path d="M250 50 v-20" stroke-dasharray="4 4"/><path d="M250 30 a60 60 0 0 1 52 30" /><path d="M296 52 l6 8 l-10 1"/></g><g ${T}><text x="310" y="110">IMU (MPU-6050)</text><text x="310" y="180">UNO R3</text><text x="310" y="250">L298N + battery</text><text x="310" y="40">tilt angle</text><text x="140" y="330" text-anchor="end">wheel</text></g>`,
+ linebot:()=>`<g ${L}><path d="M30 330 C120 330 140 240 230 240 S380 150 470 150" stroke="var(--ink)" stroke-width="16" opacity=".85"/><rect x="170" y="150" width="150" height="90" rx="10" fill="var(--bg)"/>${[[185,150],[305,150],[185,240],[305,240]].map(([x,y])=>`<rect x="${x-14}" y="${y-12}" width="28" height="24" rx="5" fill="var(--bg)"/>`).join('')}<rect x="320" y="175" width="22" height="40" rx="3" fill="var(--bg)"/><circle cx="331" cy="185" r="6"/><circle cx="331" cy="205" r="6"/><path d="M350 195 l60 -22 M350 195 l60 22" stroke-dasharray="4 5"/><rect x="215" y="245" width="60" height="10"/></g><g ${T}><text x="245" y="200" text-anchor="middle">MasterPi chassis</text><text x="420" y="225">ultrasonic</text><text x="245" y="278" text-anchor="middle">line sensor</text><text x="60" y="310">track</text></g>`,
+ picker:()=>`<g ${L}><rect x="90" y="230" width="190" height="70" rx="10" fill="var(--bg)"/>${[120,250].map(x=>`<circle cx="${x}" cy="305" r="24" fill="var(--bg)"/>`).join('')}<path d="M185 230 v-60 l90 -45 l70 60" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>${[[185,170],[275,125],[345,185]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="var(--bg)"/>`).join('')}<path d="M345 194 l-12 30 M345 194 l12 30" stroke-width="5" stroke-linecap="round"/><rect x="330" y="240" width="30" height="30" fill="var(--line)" fill-opacity=".25"/><rect x="110" y="200" width="36" height="28" rx="4" fill="var(--bg)"/><circle cx="128" cy="214" r="7"/><path d="M146 214 L330 255" stroke-dasharray="4 5"/></g><g ${T}><text x="128" y="190" text-anchor="middle">camera</text><text x="275" y="105" text-anchor="middle">arm</text><text x="345" y="295" text-anchor="middle">target</text><text x="185" y="345" text-anchor="middle">MasterPi</text></g>`
+};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const med=p=>p.media||[{t:'Diagram',k:'draw',cap:'Line diagram'}];
+const svgOf=k=>`<svg viewBox="0 0 500 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line drawing">${D[k]()}</svg>`;
+document.getElementById('idx').innerHTML=P.map((p,i)=>`<a href="#${p.id}"><small>Sheet ${String(i+2).padStart(2,'0')}</small>${esc(p.title.split(':')[0])}</a>`).join('');
+const tri=`<svg class="tri" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 L37 35 H3 Z" fill="none" stroke="var(--red)" stroke-width="2.5"/><text x="20" y="30" text-anchor="middle" font-size="15" font-weight="800" fill="var(--red)">B</text></svg>`;
+document.getElementById('projects').innerHTML=P.map((p,i)=>`
+<section class="band sheet" id="${p.id}"><div class="wrap sg">
+ <div>
+  <h2>${esc(p.title)}</h2>
+  <p style="margin:0;color:var(--soft)">${esc(p.sub)}</p>
+  <ul class="meta">${p.tags.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>
+  <p>${esc(p.what)}</p>
+  <h3>What I did</h3>
+  <ul class="did">${p.did.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>
+ </div>
+ <div class="fig">
+  ${med(p).length>1?`<div class="tabs" role="tablist">${med(p).map((m,j)=>`<button role="tab" aria-selected="${j==0}" data-p="${p.id}" data-v="${j}">${esc(m.t)}</button>`).join('')}</div>`:''}
+  <div class="view" id="v-${p.id}"></div>
+  <div class="cap"><span id="c-${p.id}"></span><span>Sheet ${String(i+2).padStart(2,'0')}</span></div>
+ </div>
+ <div class="rev">${tri}<div><h3>What I'd change</h3><ol>${p.change.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div></div>
+</div></section>`).join('');
+const show=(id,j)=>{
+ const p=P.find(x=>x.id===id),m=med(p)[j],box=document.getElementById('v-'+id);
+ box.querySelectorAll('video').forEach(v=>v.pause());
+ box.innerHTML=m.k==='img'?`<img alt="${esc(m.cap)}" src="${esc(m.src)}" loading="lazy">`:m.k==='vid'?`<video src="${esc(m.src)}" poster="${esc(m.poster||'')}" controls playsinline muted preload="none"></video>`:svgOf(p.draw);
+ document.getElementById('c-'+id).textContent=m.cap;
+ document.querySelectorAll(`button[data-p="${id}"]`).forEach(b=>b.setAttribute('aria-selected',b.dataset.v==j));
+};
+document.getElementById('projects').addEventListener('click',e=>{const b=e.target.closest('button[data-p]');if(b)show(b.dataset.p,+b.dataset.v)});
+P.forEach(p=>show(p.id,0));
+}
+</script>
+</body>
+</html>
